@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI {
+public abstract class GUI {
 
     JFrame window;
     JComponent gameWindow;
@@ -13,17 +13,21 @@ public class GUI {
     JComponent textField;
 
 
-    public GUI(){
+    public GUI(int gridSizeX, int gridSizeY){
         window = new JFrame("Game");
         window.setLayout(new BorderLayout());
+        window.setDefaultCloseOperation(3);
 
-        gameWindow = new JPanel();
-        gameWindow.setLayout(new GridBagLayout());
+        gameWindow = createGameField(gridSizeX,gridSizeY);
 
         buttonField = createButtonField();
-        buttonField.setLayout(new GridBagLayout());
 
-        textField = new JTextArea(5,10);
+        window.add(BorderLayout.SOUTH,buttonField);
+        window.add(BorderLayout.CENTER,gameWindow);
+
+
+        window.pack();
+        window.setVisible(true);
 
     }
 
@@ -101,20 +105,17 @@ public class GUI {
 
     }
 
-    private void upButtonPressed(){
+    private JPanel createGameField(int gameX, int gameY){
+        JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
 
-    }
-    private void downButtonPressed(){
 
+        return new JPanel();
     }
-    private void leftButtonPressed(){
 
-    }
-    private void rightButtonPressed(){
-
-    }
-    private void useButtonPressed(){
-
-    }
+    public abstract void upButtonPressed();
+    public abstract void downButtonPressed();
+    public abstract void leftButtonPressed();
+    public abstract void rightButtonPressed();
+    public abstract void useButtonPressed();
 
 }

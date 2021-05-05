@@ -1,9 +1,11 @@
 package Base;
 
-public class Main {
+import testGame.testGame;
 
+public class Main {
     public static void main(String[] args) {
-	// write your code here
-        System.out.println("Test");
+        // write your code here
+        GUI gui = new testGame();
+
     }
 }
