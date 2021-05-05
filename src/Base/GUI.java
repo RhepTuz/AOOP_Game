@@ -12,7 +12,7 @@ public abstract class GUI {
     JComponent buttonField;
     JComponent textField;
 
-
+//kek
     public GUI(int gridSizeX, int gridSizeY){
         window = new JFrame("Game");
         window.setLayout(new BorderLayout());
