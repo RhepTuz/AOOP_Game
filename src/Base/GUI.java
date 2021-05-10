@@ -1,9 +1,15 @@
 package Base;
 
+import Sokoban.Levels;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public abstract class GUI {
 
@@ -13,10 +19,11 @@ public abstract class GUI {
     JComponent textField;
 
 //kek
-    public GUI(int gridSizeX, int gridSizeY){
+    public GUI(int gridSizeX, int gridSizeY) throws IOException {
         window = new JFrame("Game");
         window.setLayout(new BorderLayout());
         window.setDefaultCloseOperation(3);
+        window.setResizable(false);
 
         gameWindow = createGameField(gridSizeX,gridSizeY);
 
@@ -105,11 +112,56 @@ public abstract class GUI {
 
     }
 
-    private JPanel createGameField(int gameX, int gameY){
+    private JPanel createGameField(int gameX, int gameY) throws IOException {
         JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
 
+        ImageIcon texture = new ImageIcon();
+        JLabel lbl = new JLabel();
 
-        return new JPanel();
+
+
+        try{
+            BufferedImage img = ImageIO.read(new File("sokoban_icons/wall.png"));
+            int width = 100;
+            int height = 100;
+
+            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
+
+            Graphics2D g2 = reScaled.createGraphics();
+            g2.drawImage(img,0,0,width,height,null);
+            g2.dispose();
+
+            texture.setImage(reScaled);
+            lbl = new JLabel(texture);
+        }
+        catch (IOException e){
+            System.out.println("file not found");
+        }
+
+
+
+        JLabel[][] testMap = Levels.levelSelector(1);
+
+        for(int i = 0; i < testMap.length; i++){
+            for(int j = 0; j < testMap[0].length; j++){
+
+                gameGrid.add(testMap[i][j]);
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        return gameGrid;
     }
 
     public abstract void upButtonPressed();

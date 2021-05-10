@@ -2,10 +2,12 @@ package testGame;
 
 import Base.GUI;
 
+import java.io.IOException;
+
 public class testGame extends GUI {
 
-    public testGame(){
-        super(12,12);
+    public testGame() throws IOException {
+        super(7,7);
     }
 
 
