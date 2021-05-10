@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class GameObject {
-
+//Insert meme here
     public ImageIcon setIcon(File file) {
         ImageIcon imgrtn = null;
         try {
