@@ -1,32 +1,32 @@
 package Base;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public abstract class GameObject {
+//Insert meme here
+    public ImageIcon setIcon(File file) {
+        ImageIcon imgrtn = null;
+        try {
 
-    private ImageIcon icon;
-    private int objID;
+            BufferedImage img = ImageIO.read(file);
+            BufferedImage reScaled = new BufferedImage(200, 200, BufferedImage.TYPE_INT_BGR);
 
-    public GameObject(int id, File file, int width, int height){
-       icon = ImageIconMaker.makeImageIcon(file, width,height);
-       objID = id;
+            Graphics2D g2 = reScaled.createGraphics();
+            g2.drawImage(img, 0, 0, 200, 200, null);
+            g2.dispose();
+
+            imgrtn = new ImageIcon(reScaled);
+
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
+        return imgrtn;
     }
 
-    public void setIcon(File file, int width, int height) {
-        icon = ImageIconMaker.makeImageIcon(file, width,height);
-    }
-    public ImageIcon getIcon(){
-        return icon;
-    }
-
-    public void setObjectID(int id){
-        objID = id;
-    }
-    public int getObjectID(){
-        return objID;
-    }
-
-    public abstract void accept(Visitor iv);
-
+    public abstract void update();
 }
