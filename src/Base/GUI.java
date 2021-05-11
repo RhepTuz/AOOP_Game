@@ -116,6 +116,7 @@ public abstract class GUI {
 
             }
         }
+        window.pack();
 
     }
 
