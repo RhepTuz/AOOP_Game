@@ -13,10 +13,10 @@ import java.io.IOException;
 
 public abstract class GUI {
 
-    JFrame window;
-    JComponent gameWindow;
-    JComponent buttonField;
-    JComponent textField;
+    private JFrame window;
+    private JComponent gameWindow;
+    private JComponent buttonField;
+    private JComponent textField;
 
 //kek
     public GUI(int gridSizeX, int gridSizeY) throws IOException {
@@ -95,12 +95,6 @@ public abstract class GUI {
             }
         });
 
-        leftButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                leftButtonPressed();
-            }
-        });
         useButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,57 +106,28 @@ public abstract class GUI {
 
     }
 
-    private JPanel createGameField(int gameX, int gameY) throws IOException {
-        JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
+    public void changeScreen(JLabel[][] level){
+        gameWindow.removeAll();
 
-        ImageIcon texture = new ImageIcon();
-        JLabel lbl = new JLabel();
+        for(int i = 0; i < level.length; i++){
+            for(int j = 0; j < level[0].length; j++){
 
-
-
-        try{
-            BufferedImage img = ImageIO.read(new File("sokoban_icons/wall.png"));
-            int width = 100;
-            int height = 100;
-
-            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-
-            Graphics2D g2 = reScaled.createGraphics();
-            g2.drawImage(img,0,0,width,height,null);
-            g2.dispose();
-
-            texture.setImage(reScaled);
-            lbl = new JLabel(texture);
-        }
-        catch (IOException e){
-            System.out.println("file not found");
-        }
-
-
-
-        JLabel[][] testMap = Levels.levelSelector(1);
-
-        for(int i = 0; i < testMap.length; i++){
-            for(int j = 0; j < testMap[0].length; j++){
-
-                gameGrid.add(testMap[i][j]);
+                gameWindow.add(level[i][j]);
 
             }
         }
 
+    }
 
-
-
-
-
-
-
-
-
-
-
+    private JPanel createGameField(int gameX, int gameY) throws IOException {
+        JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
         return gameGrid;
     }
+
+    public JComponent getComponent(int index){
+        return (JComponent) gameWindow.getComponent(index);
+    }
+
 
     public abstract void upButtonPressed();
     public abstract void downButtonPressed();

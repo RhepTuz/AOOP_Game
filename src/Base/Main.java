@@ -1,6 +1,6 @@
 package Base;
 
-import testGame.testGame;
+import Sokoban.testGame;
 
 import java.io.IOException;
 
