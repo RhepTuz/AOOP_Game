@@ -1,22 +1,29 @@
 package Base;
 
+import Sokoban.Levels;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public abstract class GUI {
 
-    JFrame window;
-    JComponent gameWindow;
-    JComponent buttonField;
-    JComponent textField;
+    private JFrame window;
+    private JComponent gameWindow;
+    private JComponent buttonField;
+    private JComponent textField;
 
 //kek
-    public GUI(int gridSizeX, int gridSizeY){
+    public GUI(int gridSizeX, int gridSizeY) throws IOException {
         window = new JFrame("Game");
         window.setLayout(new BorderLayout());
         window.setDefaultCloseOperation(3);
+        window.setResizable(false);
 
         gameWindow = createGameField(gridSizeX,gridSizeY);
 
@@ -88,12 +95,6 @@ public abstract class GUI {
             }
         });
 
-        leftButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                leftButtonPressed();
-            }
-        });
         useButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,12 +106,29 @@ public abstract class GUI {
 
     }
 
-    private JPanel createGameField(int gameX, int gameY){
-        JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
+    public void changeScreen(JLabel[][] level){
+        gameWindow.removeAll();
 
+        for(int i = 0; i < level.length; i++){
+            for(int j = 0; j < level[0].length; j++){
 
-        return new JPanel();
+                gameWindow.add(level[i][j]);
+
+            }
+        }
+        window.pack();
+
     }
+
+    private JPanel createGameField(int gameX, int gameY) throws IOException {
+        JPanel gameGrid = new JPanel(new GridLayout(gameX,gameY));
+        return gameGrid;
+    }
+
+    public JComponent getComponent(int index){
+        return (JComponent) gameWindow.getComponent(index);
+    }
+
 
     public abstract void upButtonPressed();
     public abstract void downButtonPressed();
