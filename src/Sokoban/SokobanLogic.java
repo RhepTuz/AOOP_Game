@@ -4,6 +4,10 @@ import Base.GameLogic;
 
 import java.util.Arrays;
 
+/**
+ * This class handles the interaction between the different integers of the 2D array
+ * this includes movement of the playercharacter pushing the boxes and walls and the pressure plates
+ */
 public class SokobanLogic extends GameLogic {
 
     private int[][] currLevel;
@@ -25,6 +29,14 @@ public class SokobanLogic extends GameLogic {
         }
     }
 
+    /**
+     *
+     * @param dir The parameter taken is from the buttonlisteners inside of the framework which we have 5 of
+     *            however only 4 of them are related to the actual movement since the 5th middle button is meant to
+     *            reset the level incase you get stuck.
+     * @return the method is called after a button is pressed and return what kind of move will happen if the character
+     * moves in said direction
+     */
     private int moveAvailable(int dir){
         int dist;
         switch (dir){
