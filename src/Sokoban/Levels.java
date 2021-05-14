@@ -1,5 +1,7 @@
 package Sokoban;
 
+import Base.ImageIconMaker;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -38,93 +40,20 @@ public class Levels {
             for(int j = 0; j < testArray[0].length; j++){
                 switch (level[i][j]){
                     case 0:
-                        try{
-                            BufferedImage img = ImageIO.read(new File("sokoban_icons/blank.png"));
-                            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-                            ImageIcon texture = new ImageIcon();
-                            Graphics2D g2 = reScaled.createGraphics();
-
-                            g2.drawImage(img,0,0,width,height,null);
-                            g2.dispose();
-
-                            texture.setImage(reScaled);
-                            testArray[i][j] = new JLabel(texture);
-                        }
-                        catch (IOException e){
-                            System.out.println("file not found");
-                        }
+                            testArray[i][j] = new JLabel(ImageIconMaker.makeImageIcon(new File("sokoban_icons/blank.png"),100,100));
                     break;
                     case 1:
-                        try{
-                            BufferedImage img = ImageIO.read(new File("sokoban_icons/wall.png"));
-                            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-                            ImageIcon texture = new ImageIcon();
-                            Graphics2D g2 = reScaled.createGraphics();
-
-                            g2.drawImage(img,0,0,width,height,null);
-                            g2.dispose();
-
-                            texture.setImage(reScaled);
-                            testArray[i][j] = new JLabel(texture);
-                        }
-                        catch (IOException e){
-                            System.out.println("file not found");
-                        }
+                            testArray[i][j] = new JLabel(ImageIconMaker.makeImageIcon(new File("sokoban_icons/wall.png"),100,100));
                     break;
-
                     case 2:
-                        try{
-                            BufferedImage img = ImageIO.read(new File("sokoban_icons/crate.png"));
-                            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-                            ImageIcon texture = new ImageIcon();
-                            Graphics2D g2 = reScaled.createGraphics();
-
-                            g2.drawImage(img,0,0,width,height,null);
-                            g2.dispose();
-
-                            texture.setImage(reScaled);
-                            testArray[i][j] = new JLabel(texture);
-                        }
-                        catch (IOException e){
-                            System.out.println("file not found");
-                        }
-                        break;
-
+                            testArray[i][j] = new JLabel(ImageIconMaker.makeImageIcon(new File("sokoban_icons/crate.png"),100,100));
+                    break;
                     case 3:
-                        try{
-                            BufferedImage img = ImageIO.read(new File("sokoban_icons/blankmarked.png"));
-                            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-                            ImageIcon texture = new ImageIcon();
-                            Graphics2D g2 = reScaled.createGraphics();
-
-                            g2.drawImage(img,0,0,width,height,null);
-                            g2.dispose();
-
-                            texture.setImage(reScaled);
-                            testArray[i][j] = new JLabel(texture);
-                        }
-                        catch (IOException e){
-                            System.out.println("file not found");
-                        }
-                        break;
-
+                            testArray[i][j] = new JLabel(ImageIconMaker.makeImageIcon(new File("sokoban_icons/blankmarked.png"),100,100));
+                    break;
                     case 4:
-                        try{
-                            BufferedImage img = ImageIO.read(new File("sokoban_icons/player.png"));
-                            BufferedImage reScaled = new BufferedImage(width,height,BufferedImage.TYPE_INT_BGR);
-                            ImageIcon texture = new ImageIcon();
-                            Graphics2D g2 = reScaled.createGraphics();
-
-                            g2.drawImage(img,0,0,width,height,null);
-                            g2.dispose();
-
-                            texture.setImage(reScaled);
-                            testArray[i][j] = new JLabel(texture);
-                        }
-                        catch (IOException e){
-                            System.out.println("file not found");
-                        }
-                        break;
+                            testArray[i][j] = new JLabel(ImageIconMaker.makeImageIcon(new File("sokoban_icons/player.png"),100,100));
+                    break;
                 }
             }
         }
