@@ -27,6 +27,5 @@ public abstract class GameObject {
         return objID;
     }
 
-    public abstract void accept(Visitor iv);
 
 }

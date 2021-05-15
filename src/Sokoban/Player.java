@@ -1,7 +1,6 @@
 package Sokoban;
 
 import Base.GameObject;
-import Base.Visitor;
 
 import java.io.File;
 
@@ -11,8 +10,7 @@ public class Player extends GameObject {
     }
 
 
-    @Override
-    public void accept(Visitor iv) {
-        iv.visit(this);
-    }
+
+
+
 }

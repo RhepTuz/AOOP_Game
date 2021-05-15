@@ -37,6 +37,7 @@ public class testGame extends Game {
         }
         System.out.println();
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
+
     }
 
     @Override
@@ -80,6 +81,10 @@ public class testGame extends Game {
 
     @Override
     public void useButtonPressed() {
+        System.out.println(Arrays.deepToString(levels.getLevel_1()));
+        gLogic.setCurrLevel(levels.getLevel_1());
+        gLogic.resetPlayerPos();
+        changeScreen(Levels.levelCreator(levels.getLevel_1()));
 
     }
 }

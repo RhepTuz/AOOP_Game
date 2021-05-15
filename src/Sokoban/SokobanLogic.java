@@ -15,6 +15,7 @@ public class SokobanLogic extends GameLogic {
     private int[] boxPos = new int[2];
 
     public SokobanLogic(int[][] lvl){
+
         currLevel = lvl;
 
 
@@ -29,15 +30,9 @@ public class SokobanLogic extends GameLogic {
         }
     }
 
-    /**
-     *
-     * @param dir The parameter taken is from the buttonlisteners inside of the framework which we have 5 of
-     *            however only 4 of them are related to the actual movement since the 5th middle button is meant to
-     *            reset the level incase you get stuck.
-     * @return the method is called after a button is pressed and return what kind of move will happen if the character
-     * moves in said direction
-     */
-    private int moveAvailable(int dir){
+
+
+    /* private int moveAvailable(int dir){
         int dist;
         switch (dir){
             //Move Up
@@ -190,7 +185,7 @@ public class SokobanLogic extends GameLogic {
 
 
     }
-
+*/
     public void setCurrLevel(int[][] currLevel) {
         this.currLevel = currLevel;
     }
@@ -198,6 +193,20 @@ public class SokobanLogic extends GameLogic {
     public int[][] getCurrLevel(){
         return currLevel;
     }
+
+    public void resetPlayerPos(){
+        for(int i = 0; i < currLevel.length; i++){
+            for(int j = 0; j < currLevel[i].length; j++){
+                if(currLevel[i][j] == 4){
+                    playerPos[0] = i;
+                    playerPos[1] = j;
+                    break;
+                }
+            }
+        }
+    }
+
+
 
     @Override
     public void interact(Object[] o) {
