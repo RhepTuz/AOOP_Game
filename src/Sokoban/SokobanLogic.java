@@ -9,15 +9,15 @@ import java.util.Arrays;
  * this includes movement of the playercharacter pushing the boxes and walls and the pressure plates
  */
 public class SokobanLogic extends GameLogic {
-
     private int[][] currLevel;
     private int[] playerPos = new int[2];
     private int[] boxPos = new int[2];
+    private OperationMovement opMove;
 
     public SokobanLogic(int[][] lvl){
 
         currLevel = lvl;
-
+        opMove = new OperationMovement();
 
         for(int i = 0; i < currLevel.length; i++){
             for(int j = 0; j < currLevel[i].length; j++){
@@ -121,12 +121,12 @@ public class SokobanLogic extends GameLogic {
                 return 0;
         }
     }
-
-    public void moveTo(int dir){
+*/
+  /*  public int moveTo(int dir, int condition){
         System.out.println(moveAvailable(dir));
-        switch (moveAvailable(dir)){
-
-            case 0:
+        int move = moveAvailable(dir);
+        switch (move){
+            default:
                 break;
             case 1:
                 currLevel[playerPos[0]][playerPos[1]] = 0;
@@ -182,6 +182,7 @@ public class SokobanLogic extends GameLogic {
                 break;
 
         }
+        return move;
 
 
     }
@@ -211,6 +212,26 @@ public class SokobanLogic extends GameLogic {
     @Override
     public void interact(Object[] o) {
         System.out.println("lmao");
+    }
+
+    public void move(int dir){
+        opMove.setContext(new OperationMoveAvailable());
+
+        switch (opMove.executeStrategy(dir, currLevel, playerPos)){
+            case 0:
+                break;
+            case 1:
+                opMove.setContext(new OperationMoveTo());
+                opMove.executeStrategy(dir, currLevel, playerPos);
+            break;
+            case 2:
+                opMove.setContext(new OperationMoveBox());
+                opMove.executeStrategy(dir, currLevel, playerPos);
+            break;
+        }
+        opMove.setContext(null);
+
+
     }
 
 }
