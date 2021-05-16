@@ -15,6 +15,7 @@ public class Assets {
     private GameObject blankMarked = new GameObject(3, new File("sokoban_icons/blankmarked.png"), 100, 100);
     private GameObject wall = new GameObject(1 , new File("sokoban_icons/wall.png"),100,100);
 
+
     private GameObject[] assetArray = new GameObject[10];
 
     public Assets(){
