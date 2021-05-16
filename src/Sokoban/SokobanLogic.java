@@ -241,6 +241,9 @@ public class SokobanLogic extends GameLogic {
                 opMove.setContext(new OperationMoveBox());
                 opMove.executeStrategy(dir, currLevel, playerPos);
                 break;
+            case 3:
+                opMove.setContext(new OperationMoveMarkedBox());
+                opMove.executeStrategy(dir,currLevel,playerPos);
         }
         opMove.setContext(null);
 

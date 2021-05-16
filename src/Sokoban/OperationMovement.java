@@ -45,11 +45,14 @@ class OperationMoveAvailable implements BootlegStrategy {
                     //walking into a wall returns a 0 "A false move"
                     return 0;
                 }
-                else if(dist == Assets.crate.getObjectID()){
+                else if(dist == Assets.crate.getObjectID() || dist == Assets.crateMarked.getObjectID()){
                     //walking into a box
                     //Checks if the tile to the bottom of the box is either a tile or a pressure plate
                     if ((map[position[0] - 2][position[1]] == Assets.blank.getObjectID() || map[position[0] - 2][position[1]] == Assets.blankMarked.getObjectID()) && dist == Assets.crate.getObjectID()){
                         return 2;
+                    }
+                    else if((map[position[0] - 2][position[1]] == Assets.blank.getObjectID() || map[position[0] - 2][position[1]] == Assets.blankMarked.getObjectID()) && dist == Assets.crateMarked.getObjectID()){
+                        return 3;
                     }
                     else{
                         return 0;
@@ -70,10 +73,12 @@ class OperationMoveAvailable implements BootlegStrategy {
                 else if(dist == Assets.crate.getObjectID() || dist == Assets.crateMarked.getObjectID()){
                     //walking into a box
                     //Checks if the tile to the bottom of the box is either a tile or a pressure plate
-                    if (map[position[0]][position[1] + 2] == Assets.blank.getObjectID() || map[position[0]][position[1] + 2] == Assets.blankMarked.getObjectID()){
+                    if ((map[position[0]][position[1] + 2] == Assets.blank.getObjectID() || map[position[0]][position[1] + 2] == Assets.blankMarked.getObjectID()) && dist == Assets.crate.getObjectID()){
                         return 2;
                     }
-
+                    else if((map[position[0]][position[1] + 2] == Assets.blank.getObjectID() || map[position[0]][position[1] + 2] == Assets.blankMarked.getObjectID()) && dist == Assets.crateMarked.getObjectID()){
+                        return 3;
+                    }
                     else{
                         return 0;
                     }
@@ -91,8 +96,11 @@ class OperationMoveAvailable implements BootlegStrategy {
                 else if(dist == Assets.crate.getObjectID() || dist == Assets.crateMarked.getObjectID()){
                     //walking into a box
                     //Checks if the tile to the bottom of the box is either a tile or a pressure plate
-                    if (map[position[0] + 2][position[1]] == Assets.blank.getObjectID() || map[position[0] + 2][position[1]] == Assets.blankMarked.getObjectID()){
+                    if ((map[position[0] + 2][position[1]] == Assets.blank.getObjectID() || map[position[0] + 2][position[1]] == Assets.blankMarked.getObjectID()) && dist == Assets.crate.getObjectID()){
                         return 2;
+                    }
+                    else if((map[position[0] + 2][position[1]] == Assets.blank.getObjectID() || map[position[0] + 2][position[1]] == Assets.blankMarked.getObjectID()) && dist == Assets.crateMarked.getObjectID()){
+                        return 3;
                     }
                     else{
                         return 0;
@@ -108,11 +116,14 @@ class OperationMoveAvailable implements BootlegStrategy {
                     //walking into a wall
                     return 0;
                 }
-                else if(dist == Assets.crate.getObjectID()){
+                else if(dist == Assets.crate.getObjectID() || dist == Assets.crateMarked.getObjectID()){
                     //walking into a box
                     //Checks if the tile to the left of the box is either a tile or a pressure plate
-                    if (map[position[0]][position[1] - 2] == Assets.blank.getObjectID() || map[position[0]][position[1] - 2] == Assets.blankMarked.getObjectID()){
+                    if ((map[position[0]][position[1] - 2] == Assets.blank.getObjectID() || map[position[0]][position[1] - 2] == Assets.blankMarked.getObjectID()) && dist == Assets.crate.getObjectID()){
                         return 2;
+                    }
+                    else if((map[position[0]][position[1] - 2] == Assets.blank.getObjectID() || map[position[0]][position[1] - 2] == Assets.blankMarked.getObjectID()) && dist == Assets.crateMarked.getObjectID()){
+                        return 3;
                     }
                     else{
                         return 0;
@@ -261,5 +272,78 @@ class OperationMoveBox implements BootlegStrategy{
         }
         return direction;
     }
+}
+
+
+class OperationMoveMarkedBox implements BootlegStrategy{
+
+    @Override
+    public int doOperation(int direction ,int [][]map, int[]position) {
+        if(map[position[0]][position[1]] == Assets.playermarked.getObjectID()){
+            map[position[0]][position[1]] = Assets.blankMarked.getObjectID();
+        }
+        else{
+            map[position[0]][position[1]] = Assets.blank.getObjectID();
+        }
+
+        switch (direction){
+            case 0:
+
+                if(map[position[0] - 2][position[1]] == Assets.blankMarked.getObjectID()){
+                    map[position[0] - 2][position[1]] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0] - 2][position[1]] = Assets.crate.getObjectID();
+                }
+                map[position[0] - 1][position[1]] = Assets.playermarked.getObjectID();
+                position[0] = position[0] - 1;
+
+                break;
+            case 1:
+
+                if(map[position[0]][position[1] + 2] == Assets.blankMarked.getObjectID()){
+                    map[position[0]][position[1] + 2] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0]][position[1] + 2] = Assets.crate.getObjectID();
+                }
+
+                map[position[0]][position[1] + 1] = Assets.playermarked.getObjectID();
+                position[1] = position[1] + 1;
+
+
+                break;
+            case 2:
+
+                if(map[position[0] + 2][position[1]] == Assets.blankMarked.getObjectID()){
+                    map[position[0] + 2][position[1]] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0] + 2][position[1]] = Assets.crate.getObjectID();
+
+                }
+
+                map[position[0] + 1][position[1]] = Assets.playermarked.getObjectID();
+                position[0] = position[0] + 1;
+
+                break;
+            case 3:
+
+                if(map[position[0]][position[1] - 2] == Assets.blankMarked.getObjectID()){
+                    map[position[0]][position[1] - 2] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0]][position[1] - 2] = Assets.crate.getObjectID();
+                }
+
+                map[position[0]][position[1] - 1] = Assets.playermarked.getObjectID();
+                position[1] = position[1] - 1;
+
+                break;
+        }
+        return direction;
+
+    }
+
 }
 
