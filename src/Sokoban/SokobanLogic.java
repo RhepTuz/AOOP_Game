@@ -214,6 +214,13 @@ public class SokobanLogic extends GameLogic {
     public void setWon(boolean bool){won = bool;}
     public boolean getWon(){return won;}
 
+    public void addObs(WindowObserver obs){
+        observers.add(obs);
+    }
+    public void removeObs(WindowObserver obs){
+        observers.remove(obs);
+    }
+
 
     @Override
     public void interact(Object[] o) {

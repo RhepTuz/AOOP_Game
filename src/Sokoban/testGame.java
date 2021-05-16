@@ -15,11 +15,12 @@ public class testGame extends Game {
     private Levels levels;
     private int currLevel = 1;
     public testGame() throws IOException {
-        super(7,7);
+        super(8,8);
         levels = new Levels();
 
         gLogic = new SokobanLogic(levels.getLevel_1());
         setLogic(gLogic);
+        gLogic.addObs(new WinObserver(gLogic));
 
         JLabel[][] ljlk = Levels.levelSelector(currLevel);
 
@@ -62,17 +63,19 @@ public class testGame extends Game {
     }
 
     @Override
-    public void useButtonPressed() {
+    public void resetButtonPressed() {
         gLogic.setCurrLevel(levels.levelGetter(currLevel));
         gLogic.resetPlayerPos();
         changeScreen(Levels.levelCreator(levels.levelGetter(currLevel)));
-        gLogic.setWon(true);
         update();
     }
+
     private void update(){
         if(gLogic.getWon()){
-            System.out.println(currLevel);
+            System.out.println(gLogic.getWon());
             currLevel++;
+            gLogic.setCurrLevel(levels.levelGetter(currLevel));
+            gLogic.resetPlayerPos();
             changeScreen(Levels.levelSelector(currLevel));
             gLogic.setWon(false);
         }

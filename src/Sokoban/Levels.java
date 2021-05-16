@@ -18,16 +18,17 @@ public class Levels {
             {1, 0, 0, 3, 0, 0, 0, 1},
             {1, 0, 0, 0, 0, 0, 0, 1},
             {1, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
     };
     private final static int[][] level_2 = {
-            {1, 1, 1, 1, 1, 1, 1},
-            {1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 2, 1},
-            {1, 0, 3, 4, 0, 0, 1},
-            {1, 0, 3, 0, 2, 2, 1},
-            {1, 0, 3, 0, 0, 0, 1},
-            {1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 2, 0, 1},
+            {1, 0, 3, 4, 0, 0, 0, 1},
+            {1, 0, 3, 0, 2, 2, 0, 1},
+            {1, 0, 3, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1},
     };
 
     public static JLabel[][] levelCreator(int[][] level){
@@ -91,7 +92,7 @@ public class Levels {
             default:
                 selLevel = new int[0][0];
         }
-        ret = new int[selLevel.length][selLevel.length];
+        ret = new int[selLevel.length][selLevel[0].length];
 
         for (int i = 0; i < selLevel.length; i++){
             for(int j = 0; j < selLevel[0].length; j++){

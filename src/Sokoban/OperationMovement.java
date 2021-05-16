@@ -48,7 +48,7 @@ class OperationMoveAvailable implements BootlegStrategy {
                 else if(dist == Assets.crate.getObjectID()){
                     //walking into a box
                     //Checks if the tile to the bottom of the box is either a tile or a pressure plate
-                    if (map[position[0] - 2][position[1]] == 0 || map[position[0] - 2][position[1]] == 3){
+                    if ((map[position[0] - 2][position[1]] == Assets.blank.getObjectID() || map[position[0] - 2][position[1]] == Assets.blankMarked.getObjectID()) && dist == Assets.crate.getObjectID()){
                         return 2;
                     }
                     else{
@@ -131,23 +131,60 @@ class OperationMoveTo implements BootlegStrategy{
 
     @Override
     public int doOperation(int direction ,int [][]map,int[]position) {
-        map[position[0]][position[1]] = 0;
+        if(map[position[0]][position[1]] == Assets.playermarked.getObjectID()){
+            map[position[0]][position[1]] = Assets.blankMarked.getObjectID();
+        }
+        else{
+            map[position[0]][position[1]] = Assets.blank.getObjectID();
+        }
+
             switch (direction){
                 case 0:
-                    map[position[0] - 1][position[1]] = Assets.player.getObjectID();
+
+
+                    if(map[position[0] - 1][position[1]] == Assets.blankMarked.getObjectID()){
+                        map[position[0] - 1][position[1]] = Assets.playermarked.getObjectID();
+                    }
+                    else
+                        map[position[0] - 1][position[1]] = Assets.player.getObjectID();
+
+
                     position[0] = position[0] - 1;
+
+
                     break;
                 case 1:
-                    map[position[0]][position[1] + 1] = Assets.player.getObjectID();
+
+
+                    if(map[position[0]][position[1] + 1] == Assets.blankMarked.getObjectID()){
+                        map[position[0]][position[1] + 1] = Assets.playermarked.getObjectID();
+                    }
+                    else
+                        map[position[0]][position[1] + 1] = Assets.player.getObjectID();
+
                     position[1] = position[1] + 1;
 
                     break;
                 case 2:
-                    map[position[0] + 1][position[1]] = Assets.player.getObjectID();
+
+
+                    if(map[position[0] + 1][position[1]] == Assets.blankMarked.getObjectID()){
+                        map[position[0] + 1][position[1]] = Assets.playermarked.getObjectID();
+                    }
+                    else
+                        map[position[0] + 1][position[1]] = Assets.player.getObjectID();
+
                     position[0] = position[0] + 1;
                     break;
                 case 3:
-                    map[position[0]][position[1] - 1] = Assets.player.getObjectID();
+
+
+                    if(map[position[0]][position[1] - 1] == Assets.blankMarked.getObjectID()){
+                        map[position[0]][position[1] - 1] = Assets.playermarked.getObjectID();
+                    }
+                    else
+                        map[position[0]][position[1] - 1] = Assets.player.getObjectID();
+
                     position[1] = position[1] - 1;
 
                     break;
@@ -160,7 +197,12 @@ class OperationMoveBox implements BootlegStrategy{
 
     @Override
     public int doOperation(int direction ,int [][]map, int[]position) {
-        map[position[0]][position[1]] = 0;
+        if(map[position[0]][position[1]] == Assets.playermarked.getObjectID()){
+            map[position[0]][position[1]] = Assets.blankMarked.getObjectID();
+        }
+        else{
+            map[position[0]][position[1]] = Assets.blank.getObjectID();
+        }
 
         switch (direction){
             case 0:
@@ -195,7 +237,8 @@ class OperationMoveBox implements BootlegStrategy{
                     map[position[0] + 2][position[1]] = Assets.crateMarked.getObjectID();
                 }
                 else{
-                    map[position[0]][position[1] + 2] = Assets.crate.getObjectID();
+                    map[position[0] + 2][position[1]] = Assets.crate.getObjectID();
+
                 }
 
                 map[position[0] + 1][position[1]] = Assets.player.getObjectID();

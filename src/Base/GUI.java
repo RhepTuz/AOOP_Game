@@ -1,14 +1,9 @@
 package Base;
 
-import Sokoban.Levels;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public abstract class GUI {
@@ -46,7 +41,7 @@ public abstract class GUI {
         JButton downButton = new JButton("Down");
         JButton leftButton = new JButton("Left");
         JButton rightButton = new JButton("Right");
-        JButton useButton = new JButton("Use");
+        JButton resetButton = new JButton("RESET");
 
         con.fill = GridBagConstraints.HORIZONTAL;
         con.gridx = 1;
@@ -59,7 +54,7 @@ public abstract class GUI {
 
         con.gridx = 1;
         con.gridy = 1;
-        buttons.add(useButton,con);
+        buttons.add(resetButton,con);
 
         con.gridx = 2;
         con.gridy = 1;
@@ -95,10 +90,10 @@ public abstract class GUI {
             }
         });
 
-        useButton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                useButtonPressed();
+                resetButtonPressed();
             }
         });
 
@@ -108,14 +103,17 @@ public abstract class GUI {
 
     public void changeScreen(JLabel[][] level){
         gameWindow.removeAll();
+        gameWindow.setLayout(new GridLayout(level.length,level[0].length));
+        int k = 0;
 
         for(int i = 0; i < level.length; i++){
             for(int j = 0; j < level[0].length; j++){
-
+                k++;
                 gameWindow.add(level[i][j]);
 
             }
         }
+        System.out.println(k);
         window.pack();
 
     }
@@ -134,6 +132,6 @@ public abstract class GUI {
     public abstract void downButtonPressed();
     public abstract void leftButtonPressed();
     public abstract void rightButtonPressed();
-    public abstract void useButtonPressed();
+    public abstract void resetButtonPressed();
 
 }
