@@ -6,14 +6,15 @@ import Base.GameLogic;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class testGame extends Game {
 
     private SokobanLogic gLogic;
-
+    private Levels levels;
     public testGame() throws IOException {
         super(7,7);
-        Levels levels = new Levels();
+        levels = new Levels();
 
         gLogic = new SokobanLogic(levels.getLevel_1());
         setLogic(gLogic);
@@ -28,58 +29,39 @@ public class testGame extends Game {
 
     @Override
     public void upButtonPressed() {
-        gLogic.moveTo(0);
-        for(int i = 0; i < gLogic.getCurrLevel().length; i++){
-            for(int j = 0; j < gLogic.getCurrLevel()[i].length; j++){
-                System.out.print(gLogic.getCurrLevel()[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
+        gLogic.move(0);
+
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
+
     }
 
     @Override
     public void downButtonPressed() {
-            gLogic.moveTo(2);
-        for(int i = 0; i < gLogic.getCurrLevel().length; i++){
-            for(int j = 0; j < gLogic.getCurrLevel()[i].length; j++){
-                System.out.print(gLogic.getCurrLevel()[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
+            gLogic.move(2);
+
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
     }
 
     @Override
     public void leftButtonPressed() {
-            gLogic.moveTo(3);
-        for(int i = 0; i < gLogic.getCurrLevel().length; i++){
-            for(int j = 0; j < gLogic.getCurrLevel()[i].length; j++){
-                System.out.print(gLogic.getCurrLevel()[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+            gLogic.move(3);
+
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
     }
 
     @Override
     public void rightButtonPressed() {
-            gLogic.moveTo(1);
-        for(int i = 0; i < gLogic.getCurrLevel().length; i++){
-            for(int j = 0; j < gLogic.getCurrLevel()[i].length; j++){
-                System.out.print(gLogic.getCurrLevel()[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+        gLogic.move(1);
+
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
     }
 
     @Override
     public void useButtonPressed() {
+        System.out.println(Arrays.deepToString(levels.getLevel_1()));
+        gLogic.setCurrLevel(levels.getLevel_1());
+        gLogic.resetPlayerPos();
+        changeScreen(Levels.levelCreator(levels.getLevel_1()));
 
     }
 }

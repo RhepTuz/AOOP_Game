@@ -4,15 +4,20 @@ import Base.GameLogic;
 
 import java.util.Arrays;
 
+/**
+ * This class handles the interaction between the different integers of the 2D array
+ * this includes movement of the playercharacter pushing the boxes and walls and the pressure plates
+ */
 public class SokobanLogic extends GameLogic {
-
     private int[][] currLevel;
     private int[] playerPos = new int[2];
     private int[] boxPos = new int[2];
+    private OperationMovement opMove;
 
     public SokobanLogic(int[][] lvl){
-        currLevel = lvl;
 
+        currLevel = lvl;
+        opMove = new OperationMovement();
 
         for(int i = 0; i < currLevel.length; i++){
             for(int j = 0; j < currLevel[i].length; j++){
@@ -25,7 +30,9 @@ public class SokobanLogic extends GameLogic {
         }
     }
 
-    private int moveAvailable(int dir){
+
+
+    /* private int moveAvailable(int dir){
         int dist;
         switch (dir){
             //Move Up
@@ -114,12 +121,12 @@ public class SokobanLogic extends GameLogic {
                 return 0;
         }
     }
-    // Code rivaling the big game companies
-    public void moveTo(int dir){
+*/
+  /*  public int moveTo(int dir, int condition){
         System.out.println(moveAvailable(dir));
-        switch (moveAvailable(dir)){
-
-            case 0:
+        int move = moveAvailable(dir);
+        switch (move){
+            default:
                 break;
             case 1:
                 currLevel[playerPos[0]][playerPos[1]] = 0;
@@ -175,10 +182,11 @@ public class SokobanLogic extends GameLogic {
                 break;
 
         }
+        return move;
 
 
     }
-
+*/
     public void setCurrLevel(int[][] currLevel) {
         this.currLevel = currLevel;
     }
@@ -187,9 +195,43 @@ public class SokobanLogic extends GameLogic {
         return currLevel;
     }
 
+    public void resetPlayerPos(){
+        for(int i = 0; i < currLevel.length; i++){
+            for(int j = 0; j < currLevel[i].length; j++){
+                if(currLevel[i][j] == 4){
+                    playerPos[0] = i;
+                    playerPos[1] = j;
+                    break;
+                }
+            }
+        }
+    }
+
+
+
     @Override
     public void interact(Object[] o) {
         System.out.println("lmao");
+    }
+
+    public void move(int dir){
+        opMove.setContext(new OperationMoveAvailable());
+
+        switch (opMove.executeStrategy(dir, currLevel, playerPos)){
+            case 0:
+                break;
+            case 1:
+                opMove.setContext(new OperationMoveTo());
+                opMove.executeStrategy(dir, currLevel, playerPos);
+            break;
+            case 2:
+                opMove.setContext(new OperationMoveBox());
+                opMove.executeStrategy(dir, currLevel, playerPos);
+            break;
+        }
+        opMove.setContext(null);
+
+
     }
 
 }

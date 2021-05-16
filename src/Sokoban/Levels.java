@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Levels {
 
-    private static int[][] level_1 = {
+    private final static int[][] level_1 = {
             {1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 4, 0, 0, 1},
             {1, 0, 0, 2, 0, 0, 1},
@@ -20,7 +20,7 @@ public class Levels {
             {1, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1},
     };
-    private static int[][] level_1_layer_1 = {
+    private final static int[][] level_1_layer_1 = {
             {0, 0, 0, 1, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 1},
             {1, 0, 0, 0, 0, 0, 1},
@@ -62,7 +62,14 @@ public class Levels {
     }
 
     public int[][] getLevel_1(){
-        return level_1.clone();
+        int[][] temp = new int[level_1.length][level_1[0].length];
+
+        for (int i = 0; i < level_1.length; i++){
+            for(int j = 0; j < level_1[0].length; j++){
+                temp[i][j] = level_1[i][j];
+            }
+        }
+        return temp;
     }
 
     public static JLabel[][] levelSelector(int level) {

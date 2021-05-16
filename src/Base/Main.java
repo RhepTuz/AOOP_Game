@@ -1,5 +1,6 @@
 package Base;
 
+import Sokoban.Assets;
 import Sokoban.testGame;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.Arrays;
 
 //lmaoKekW
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // write your code here
         GUI gui = new testGame();
 
@@ -27,6 +28,9 @@ public class Main {
             }
             System.out.println();
         }
+
+        Assets test = new Assets();
+
 
     }
 }
