@@ -3,7 +3,7 @@ package Base;
 import javax.swing.*;
 import java.io.File;
 
-public abstract class GameObject {
+public  class GameObject {
 
     private ImageIcon icon;
     private int objID;
