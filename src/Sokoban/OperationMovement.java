@@ -158,7 +158,7 @@ class OperationMoveTo implements BootlegStrategy{
 class OperationMoveBox implements BootlegStrategy{
 
     @Override
-    public int doOperation(int direction ,int [][]map,int[]position) {
+    public int doOperation(int direction ,int [][]map, int[]position) {
         map[position[0]][position[1]] = 0;
 
         switch (direction){
@@ -167,21 +167,46 @@ class OperationMoveBox implements BootlegStrategy{
                 map[position[0] - 2][position[1]] = 2;
                 position[0] = position[0] - 1;
 
+                if(map[position[0] - 2][position[1]] == Assets.blankMarked.getObjectID()){
+                    map[position[0] - 2][position[1]] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0] - 2][position[1]] = Assets.crate.getObjectID();
+                }
+                map[position[0] - 1][position[1]] = Assets.player.getObjectID();
+                position[0] = position[0] - 1;
+
                 break;
             case 1:
                 map[position[0]][position[1] + 1] = 4;
                 map[position[0]][position[1] + 2] = 2;
                 position[1] = position[1] + 1;
 
+
                 break;
             case 2:
-                map[position[0] + 1][position[1]] = 4;
-                map[position[0] + 2][position[1]] = 2;
+
+                if(map[position[0] + 2][position[1]] == Assets.blankMarked.getObjectID()){
+                    map[position[0] + 2][position[1]] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0]][position[1] + 2] = Assets.crate.getObjectID();
+                }
+
+                map[position[0] + 1][position[1]] = Assets.player.getObjectID();
                 position[0] = position[0] + 1;
+
                 break;
             case 3:
-                map[position[0]][position[1] - 1] = 4;
-                map[position[0]][position[1] - 2] = 2;
+
+                if(map[position[0]][position[1] - 2] == Assets.blankMarked.getObjectID()){
+                    map[position[0]][position[1] - 2] = Assets.crateMarked.getObjectID();
+                }
+                else{
+                    map[position[0]][position[1] - 2] = Assets.crate.getObjectID();
+                }
+
+                map[position[0]][position[1] - 1] = Assets.player.getObjectID();
                 position[1] = position[1] - 1;
 
                 break;

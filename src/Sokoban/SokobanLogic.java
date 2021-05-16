@@ -1,7 +1,9 @@
 package Sokoban;
 
 import Base.GameLogic;
+import Base.WindowObserver;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -13,6 +15,8 @@ public class SokobanLogic extends GameLogic {
     private int[] playerPos = new int[2];
     private int[] boxPos = new int[2];
     private OperationMovement opMove;
+    private ArrayList<WindowObserver> observers = new ArrayList<>();
+    private boolean won = false;
 
     public SokobanLogic(int[][] lvl){
 
@@ -207,6 +211,8 @@ public class SokobanLogic extends GameLogic {
         }
     }
 
+    public void setWon(boolean bool){won = bool;}
+    public boolean getWon(){return won;}
 
 
     @Override
@@ -214,24 +220,26 @@ public class SokobanLogic extends GameLogic {
         System.out.println("lmao");
     }
 
-    public void move(int dir){
+    public void move(int dir) {
         opMove.setContext(new OperationMoveAvailable());
 
-        switch (opMove.executeStrategy(dir, currLevel, playerPos)){
+        switch (opMove.executeStrategy(dir, currLevel, playerPos)) {
             case 0:
                 break;
             case 1:
                 opMove.setContext(new OperationMoveTo());
                 opMove.executeStrategy(dir, currLevel, playerPos);
-            break;
+                break;
             case 2:
                 opMove.setContext(new OperationMoveBox());
                 opMove.executeStrategy(dir, currLevel, playerPos);
-            break;
+                break;
         }
         opMove.setContext(null);
 
-
+            for (WindowObserver obs : observers) {
+                obs.update();
+            }
+        }
     }
 
-}

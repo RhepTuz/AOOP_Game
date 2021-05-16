@@ -8,10 +8,12 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 
+
 public class testGame extends Game {
 
     private SokobanLogic gLogic;
     private Levels levels;
+    private int currLevel = 1;
     public testGame() throws IOException {
         super(7,7);
         levels = new Levels();
@@ -19,7 +21,7 @@ public class testGame extends Game {
         gLogic = new SokobanLogic(levels.getLevel_1());
         setLogic(gLogic);
 
-        JLabel[][] ljlk = Levels.levelCreator(levels.getLevel_1());
+        JLabel[][] ljlk = Levels.levelSelector(currLevel);
 
         changeScreen(ljlk);
 
@@ -32,7 +34,7 @@ public class testGame extends Game {
         gLogic.move(0);
 
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
-
+        update();
     }
 
     @Override
@@ -40,6 +42,7 @@ public class testGame extends Game {
             gLogic.move(2);
 
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
+        update();
     }
 
     @Override
@@ -47,6 +50,7 @@ public class testGame extends Game {
             gLogic.move(3);
 
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
+        update();
     }
 
     @Override
@@ -54,14 +58,23 @@ public class testGame extends Game {
         gLogic.move(1);
 
         changeScreen(Levels.levelCreator(gLogic.getCurrLevel()));
+        update();
     }
 
     @Override
     public void useButtonPressed() {
-        System.out.println(Arrays.deepToString(levels.getLevel_1()));
-        gLogic.setCurrLevel(levels.getLevel_1());
+        gLogic.setCurrLevel(levels.levelGetter(currLevel));
         gLogic.resetPlayerPos();
-        changeScreen(Levels.levelCreator(levels.getLevel_1()));
-
+        changeScreen(Levels.levelCreator(levels.levelGetter(currLevel)));
+        gLogic.setWon(true);
+        update();
+    }
+    private void update(){
+        if(gLogic.getWon()){
+            System.out.println(currLevel);
+            currLevel++;
+            changeScreen(Levels.levelSelector(currLevel));
+            gLogic.setWon(false);
+        }
     }
 }
