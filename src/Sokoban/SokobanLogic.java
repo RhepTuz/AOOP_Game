@@ -114,7 +114,7 @@ public class SokobanLogic extends GameLogic {
                 return 0;
         }
     }
-
+    // Code rivaling the big game companies
     public void moveTo(int dir){
         System.out.println(moveAvailable(dir));
         switch (moveAvailable(dir)){
